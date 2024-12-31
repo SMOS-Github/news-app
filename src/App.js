@@ -1,24 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import logo from './logo.svg';
+import React, { Component } from 'react';
 import Navbar from './components/Navbar';
-import Home from './components/Home';
-import About from './components/About';
-import Contact from './components/Contact';
-import { Routes, Route } from 'react-router-dom';
-import React,{Component } from 'react';
+import Cards from './components/Cards';
+import Newsitems from './components/Newsitems';
+export default class App extends Component {
+    //class veriables here.
 
-function App() {
-
-  return (
-      <>
-          <Navbar />
-          <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About title=" AlexWilliams" />} />
-              <Route path="/contact" element={<Contact />}/>
-          </Routes>
-      </> 
-  )
+    render() {
+        
+        return (
+            <>
+                <Navbar />
+                <Newsitems/>
+            </>
+        );
+    }
 }
 
-export default App;
