@@ -1,7 +1,12 @@
 .App {
   text-align: center;
 }
-
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    overflow:hidden;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +40,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+.navbar{
+    height:60px;
+    background-color:black;
+    
+    padding:0 20px;
+    gap:100px;
+}
+ul{
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+    flex-direction:row;
+    line-height:60px;
+}
+a{
+    text-decoration:none;
+    color:white;
+    list-style-type:none;
+    font-weight:bold;
+}
+a:hover{
+    color:dodgerblue;
+}
+
+h1{
+    height:60px;
+    padding-left:100px;
+    background-color:crimson;
+    color:white;
 }
