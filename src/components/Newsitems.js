@@ -8,18 +8,32 @@ export default class Newsitems extends Component {
             super();
             this.state = {
                 articles:[],  //source//internal json source.
-                loading: false
+                loading: false,
+                page: page + 1,
             }
                 
         }
 
-    async componentDidMount() {
-        let url = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8bc01474b5a947b48efba4665f6d4439";
+    async componentDidMount(e) {
+        let url = "https://newsapi.org/v2/everything?q=apple&from=2024-12-31&to=2024-12-31&sortBy=popularity&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=1";
         let data = await fetch(url);
         let responce = await data.json();
-        console.log(responce);
-        this.setState({ articles:responce.articles.slice(0,9) });   //slice is use here for sepicif range of news we want.
+        let filteredArticles = responce.articles.filter(article => article.title !== "[Removed]" && article.description !== "[Removed]" && article.urlToImage !== null && article.content !== "[Removed]");
+        console.log(filteredArticles);
+        this.setState({ articles:filteredArticles});   //slice is use here for sepicif range of news we want.
     }
+
+    handleChange = () => {
+        let url = "https://newsapi.org/v2/everything?q=apple&from=2024-12-31&to=2024-12-31&sortBy=popularity&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=1";
+        let data = await fetch(url);
+        let responce = await data.json();
+        let filteredArticles = responce.articles.filter(article => article.title !== "[Removed]" && article.description !== "[Removed]" && article.urlToImage !== null && article.content !== "[Removed]");
+        console.log(filteredArticles);
+        this.setState({ articles: filteredArticles });
+    }
+
+
+
     render() {
 
 
@@ -30,18 +44,19 @@ export default class Newsitems extends Component {
                         {
                             this.state.articles.map((e) => {
 
-                                return  <div className="col-md-4 my-2">
-                                    <Cards title={<strong>{e.title}</strong>} description={e.description.slice(0,100)} imageUrl={e.urlToImage} newsUrl={e.url} />
+                                return <div className="col-md-4 my-2">
+                                    
+                                    <Cards title={<strong>{e.title}</strong>} description={e.description} imageUrl=                 {e.urlToImage} newsUrl={e.url} />
                                 </div>
                             })
                         }
 
                     </div>
                 </div>
-                <div className="container">
+                <div className="container mb-2">
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Next</button>
-                        <button class="btn btn-primary" type="button">Previous</button>
+                        <button class="btn btn-primary my-1" onClick={this.handleChange} type="button">Next</button>
+                        <button class="btn btn-primary my-1" onClick={ } type="button">Previous</button>
                     </div>
                 </div>
             </>
