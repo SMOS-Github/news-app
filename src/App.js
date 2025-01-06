@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Cards from './components/Cards';
 import Newsitems from './components/Newsitems';
+
 export default class App extends Component {
     //class veriables here.
 
@@ -11,7 +12,8 @@ export default class App extends Component {
         
         return (
             <>
-                <Navbar />
+                <Navbar title="BBC NEWS" treanding="WTF"/>
+               
                 <Newsitems/>
             </>
         );
