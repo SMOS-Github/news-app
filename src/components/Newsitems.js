@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
 import Cards from './Cards';
-import source from '../source.json';
+//import source from '../source.json';
 import Loading from './Loading';
-
+import PropTypes from 'prop-types';
 export default class Newsitems extends Component {
+
+    APIkey = "8bc01474b5a947b48efba4665f6d4439";
     constructor() {
         super();
         this.state = {
-            articles: [],  //source//internal json source.
+            articles: [],  //source    //internal json source.
             loading: true,
             page: 1,
             totalResults: 0,
             isEnd: false
         }
     }
+
+    static defaultProps = {
+        country: 'us',
+        pageSize: 9,
+        category: 'business',
+        every:'top-headlines',
+    }
+    static propTypes = {
+        country: PropTypes.string,
+        pageSize: PropTypes.number,
+        category: PropTypes.string,
+        every:PropTypes.string,
+    }
+
     async componentDidMount(e) {
        
         { this.setState({ loading: true }) }
 
-        let url = "https://newsapi.org/v2/everything?q=apple&from=2024-12-31&to=2024-12-31&sortBy=popularity&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=1";
-
-        let url2 = "https://newsapi.org/v2/everything?q=all&from=2024-12-06&sortBy=publishedAt&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=1";
+        const currentDate = new Date(Date.now());
+        const yetDate = currentDate.toISOString().split('T')[0];
+        
+        let url2 = `https://newsapi.org/v2/${this.props.every}?&country=${this.props.country}&category=${this.props.category}&from=${yetDate}&sortBy=publishedAt&apiKey=${this.APIkey}&pageSize=${this.props.pageSize}&page=1`;
         try {
             let data = await fetch(url2);
             if (data.status === 200) {
@@ -51,11 +68,13 @@ export default class Newsitems extends Component {
     handleChange = async () => {
 
 
+        const currentDate = new Date(Date.now());
+        const yetDate = currentDate.toISOString().split('T')[0];
 
         { this.setState({ loading: true }) }
-        let url = `https://newsapi.org/v2/everything?q=apple&from=2024-12-31&to=2024-12-31&sortBy=popularity&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=${this.state.page + 1}`;
+       
+        let url2 = `https://newsapi.org/v2/${this.props.every}?&country=${this.props.country}&category=${this.props.category}&from=${yetDate}&sortBy=publishedAt&apiKey=${this.APIkey}&pageSize=${this.props.pageSize}&page=${this.state.page + 1}`;
 
-        let url2 = `https://newsapi.org/v2/everything?q=all&from=2024-12-06&sortBy=publishedAt&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=${this.state.page+1}`;
         try {
             let data = await fetch(url2);
             if (data.status === 200) {
@@ -85,8 +104,13 @@ export default class Newsitems extends Component {
     }
     handleChangePrev = async () => {
         { this.setState({ loading: true }) }
-        let url = `https://newsapi.org/v2/everything?q=apple&from=2024-12-31&to=2024-12-31&sortBy=popularity&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=${this.state.page - 1}`;
-        let url2 = `https://newsapi.org/v2/everything?q=all&from=2024-12-06&sortBy=publishedAt&apiKey=8bc01474b5a947b48efba4665f6d4439&pageSize=12&page=${this.state.page + 1}`;
+
+
+        const currentDate = new Date(Date.now());
+        const yetDate = currentDate.toISOString().split('T')[0];
+
+        let url2 = `https://newsapi.org/v2/${this.props.every}?&country=${this.props.country}&category=${this.props.category}&from=${yetDate}&sortBy=publishedAt&apiKey=${this.APIkey}&pageSize=${this.props.pageSize}&page=${this.state.page - 1}`;
+
         try {
 
             let data = await fetch(url2);

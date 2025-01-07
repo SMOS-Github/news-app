@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Cards from './components/Cards';
 import Newsitems from './components/Newsitems';
-
+import {Routes,Route } from 'react-router-dom';
 export default class App extends Component {
     //class veriables here.
 
@@ -12,9 +12,9 @@ export default class App extends Component {
         
         return (
             <>
-                <Navbar title="BBC NEWS" treanding="WTF"/>
+                <Navbar title="BBC NEWS"/>
                
-                <Newsitems/>
+                <Newsitems pageSize={9} country="us" every="top-headlines" category="business"/>
             </>
         );
     }

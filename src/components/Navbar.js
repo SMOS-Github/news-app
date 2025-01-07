@@ -17,20 +17,20 @@ export default class Navbar extends Component {
                                     <a className="nav-link active" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/">{this.props.treanding}</a>
+                                    <a className="nav-link" href="/">Treanding</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/">{this.props.top}</a>
+                                    <a className="nav-link" href="/">Top Headlines</a>
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {this.props.world}
+                                        World
                                     </a>
                                     <ul className="dropdown-menu">
-                                        <li><a className="dropdown-item" href="/">{this.props.us}</a></li>
+                                        <li><a className="dropdown-item" href="/">USA</a></li>
                                         <hr></hr>
-                                        <li><a className="dropdown-item" href="/">{this.props.crypto}</a></li>
-                                        <li><a className="dropdown-item" href="/">{this.props.sports}</a></li>
+                                        <li><a className="dropdown-item" href="/">Crypto</a></li>
+                                        <li><a className="dropdown-item" href="/">Sports</a></li>
                                     </ul>
                                 </li>
                             </ul>
