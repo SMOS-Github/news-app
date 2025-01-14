@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import load from '../load.gif';
 
 export default class Loading extends Component {
     render() {
         return (
             <>
-                <img src={load} alt="Loading" height="100" width="100" />
+                <div className="spinner-border text-primary my-2" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+
             </>
         );
     }
