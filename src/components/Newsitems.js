@@ -33,7 +33,7 @@ export default class Newsitems extends Component {
 
     async componentDidMount(e) {
 
-        { this.setState({ loading: true }) }
+        this.setState({ loading: true });
 
         const currentDate = new Date(Date.now());
         const yetDate = currentDate.toISOString().split('T')[0];
@@ -42,9 +42,16 @@ export default class Newsitems extends Component {
         try {
             let data = await fetch(url2);
             if (data.status === 200) {
-
+                console.log(data.totalResults);
                 let responce = await data.json();
-                let filteredArticles = responce.articles.filter(article => article.title !== "[Removed]" && article.description !== "[Removed]" && article.urlToImage !== null && article.content !== "[Removed]");
+
+                let filteredArticles = responce.articles.filter(article =>
+                    article.title !== "[Removed]" &&
+                    article.description !== "[Removed]" &&
+                    article.urlToImage !== null &&
+                    article.content !== "[Removed]"
+                );
+
                 filteredArticles = filteredArticles.map(article => ({
                     ...article,
                     publishedAt: new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -76,24 +83,6 @@ export default class Newsitems extends Component {
 
     }
 
-    fetchMoreData = async () => {
-
-        this.setState({
-            page: this.state.page + 1,
-        });
-        const currentDate = new Date(Date.now());
-        const yetDate = currentDate.toISOString().split('T')[0];
-
-        const url2 = `https://newsapi.org/v2/${this.props.every}?&country=${this.props.country}&category=${this.props.category}&from=${yetDate}&sortBy=publishedAt&apiKey=${this.APIkey}&pageSize=${this.props.pageSize}&page=${this.state.page + 1}`;
-        this.setState({ loading: true });
-        let data = await fetch(url2);
-        const response = await data.json();
-        this.setState({
-            articles: this.state.articles.concat(response.articles),
-            totalArticles: response.totalResults,
-            loading: false,
-        });
-    };
 
     render() {
 
@@ -105,20 +94,13 @@ export default class Newsitems extends Component {
                     {this.state.loading ? <Loading /> : null}
                 </div>
                 <div className="container my-4 text-center">
-                    <InfiniteScroll
-                        dataLength={this.state.articles.length}
-                        next={this.fetchMoreData}
-                        inverse={true} //
-                        hasMore={!this.state.isEnd}
-                        loader={<Loading />}
-                    //scrollableTarget="scrollableDiv"
-                    >
+                   
                         <div className="row">
                             {
 
                                 this.state.articles.map((e, index) => {
 
-                                    //return
+                                    
                                     return <div className="col-md-4 my-2" key={index} >
 
                                         <Cards title={<strong>{e.title}</strong>} description={e.description} imageUrl=                     {e.urlToImage} newsUrl={e.url} pubDate={e.publishedAt} />
@@ -126,7 +108,7 @@ export default class Newsitems extends Component {
                                 })
                             }
                         </div>
-                    </InfiniteScroll>
+                    
                 </div>
 
             </>
