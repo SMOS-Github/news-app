@@ -1,30 +1,27 @@
 import Recat, { Component } from 'react';
-export default class Cards extends Component {
+import PropTypes from 'prop-types';
+export default function Cards(props) {
 
-    static defaultProps = {
-        title: "No Title Available",
-        description: "No Description Available",
-        imageUrl: "https://via.placeholder.com/150",
-        newsUrl: "#",
-        pubDate: null,
-
-    };
-
-    render() {
-        let {title,description,imageUrl,newsUrl,pubDate} = this.props;
-        return (
-            <>
-                <div className="card w-18rem">
-                    <img src={imageUrl} className="card-img-top" alt=""/>
-                        <div className="card-body">
-                        <h5 className="card-title">{title}</h5>
-                        <p className="card-text">{description}</p>
-                        <p className="text-secondary">Published on: {pubDate}</p>
-                        <a href={newsUrl} target="_blank" className="btn btn-sm btn-primary">Read More</a>
-                        </div>
+    return (
+        <>
+            <div className="card w-18rem my-5">
+                <img src={props.imageUrl} className="card-img-top" alt="" />
+                <div className="card-body">
+                    <h5 className="card-title">{props.title}</h5>
+                    <p className="card-text">{props.description}</p>
+                    <p className="text-secondary">Published on: {props.pubDate}</p>
+                    <a href={props.newsUrl} target="_blank" className="btn btn-sm btn-primary">Read More</a>
                 </div>
+            </div>
 
-            </>
-        )
-    }
+        </>
+    )
 }
+Cards.defaultProps = {
+    title: "No Title Available",
+    description: "No Description Available",
+    imageUrl: "https://via.placeholder.com/150",
+    newsUrl: "#",
+    pubDate: null,
+
+};

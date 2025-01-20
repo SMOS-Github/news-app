@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Loading extends Component {
-    render() {
-        return (
-            <>
-                <div className="spinner-border text-primary my-2" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
+export default function Loading() {
 
-            </>
-        );
-    }
+    return (
+        <>
+            <div className="spinner-border text-primary my-2" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+
+        </>
+    );
 }

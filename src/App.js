@@ -4,26 +4,36 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Cards from './components/Cards';
 import Newsitems from './components/Newsitems';
-import {Routes,Route } from 'react-router-dom';
-export default class App extends Component {
-    //class veriables here.
+import { Routes, Route } from 'react-router-dom';
+import React, {useState} from 'react';
+import LoadingBar from "react-top-loading-bar";
 
-    render() {
-        
-        return (
-            <>
-                <Navbar title="BBC NEWS"/>
-                <Routes>
-                    <Route excat path="/" element={<Newsitems key="general"  pageSize={6} country="us" every="top-headlines" category="general" />} />
-                    <Route excat path="/entertainment" element={<Newsitems key="entertainment" pageSize={6} country="us" every="top-headlines" category="entertainment" />} />
-                    <Route excat path="/health" element={<Newsitems key="health" pageSize={6} country="us" every="top-headlines" category="health" />} />
-                    <Route excat path="/science" element={<Newsitems key="science" pageSize={6} country="us" every="top-headlines" category="science" />} />
-                    <Route excat path="/technology" element={<Newsitems key="technology" pageSize={6} country="us" every="top-headlines" category="technology" />} />
-                    <Route excat path="/business" element={<Newsitems key="business" pageSize={6} country="us" every="top-headlines" category="business" />} />
-                    <Route excat path="/sports" element={<Newsitems key="sports" pageSize={6} country="us" every="top-headlines" category="sports" />} />
-                </Routes>
-            </>
-        );
-    }
+export default function App(props) {
+
+    const [progress, setProgress] = useState(10);
+
+    setProgress = {progress}
+
+    return (
+        <>
+            <LoadingBar
+                color="blue"
+                progress={this.state.progress}
+                onLoaderFinished={setProgress(0)}
+            />
+
+            <Navbar title="BBC NEWS" />
+            <Routes>
+                <Route excat path="/" element={<Newsitems setProgress={setProgress} key="general" pageSize={6} country="us" endPoint="top-headlines" category="general" />} />
+                <Route excat path="/entertainment" element={<Newsitems setProgress={setProgress} key="entertainment" pageSize={6} country="us" endPoint="top-headlines" category="entertainment" />} />
+                <Route excat path="/health" element={<Newsitems setProgress={setProgress} key="health" pageSize={6} country="us" endPoint="top-headlines" category="health" />} />
+                <Route excat path="/science" element={<Newsitems setProgress={setProgress} key="science" pageSize={6} country="us" endPoint="top-headlines" category="science" />} />
+                <Route excat path="/technology" element={<Newsitems setProgress={setProgress} key="technology" pageSize={6} country="us" endPoint="top-headlines" category="technology" />} />
+                <Route excat path="/business" element={<Newsitems setProgress={setProgress} key="business" pageSize={6} country="us" endPoint="top-headlines" category="business" />} />
+                <Route excat path="/sports" element={<Newsitems setProgress={setProgress} key="sports" pageSize={6} country="us" endPoint="top-headlines" category="sports" />} />
+            </Routes>
+        </>
+    );
 }
+
 
