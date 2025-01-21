@@ -1,6 +1,5 @@
 import './App.css';
 import logo from './logo.svg';
-import React, { Component } from 'react';
 import Navbar from './components/Navbar';
 import Cards from './components/Cards';
 import Newsitems from './components/Newsitems';
@@ -18,8 +17,8 @@ export default function App(props) {
         <>
             <LoadingBar
                 color="blue"
-                progress={this.state.progress}
-                onLoaderFinished={setProgress(0)}
+                progress={progress}
+                onLoaderFinished={()=>setProgress(0)}
             />
 
             <Navbar title="BBC NEWS" />
