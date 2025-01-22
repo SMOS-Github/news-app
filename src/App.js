@@ -9,9 +9,9 @@ import LoadingBar from "react-top-loading-bar";
 
 export default function App(props) {
 
-    const [progress, setProgress] = useState(10);
+    const APIKey = process.env.REACT_APP_NEWS_API_KEY;
 
-    setProgress = {progress}
+    const [progress, setProgress] = useState(10);
 
     return (
         <>
@@ -23,7 +23,7 @@ export default function App(props) {
 
             <Navbar title="BBC NEWS" />
             <Routes>
-                <Route excat path="/" element={<Newsitems setProgress={setProgress} key="general" pageSize={6} country="us" endPoint="top-headlines" category="general" />} />
+                <Route excat path="/" element={<Newsitems setProgress={setProgress}  key="general" pageSize={6} country="us" endPoint="top-headlines" category="general" />} />
                 <Route excat path="/entertainment" element={<Newsitems setProgress={setProgress} key="entertainment" pageSize={6} country="us" endPoint="top-headlines" category="entertainment" />} />
                 <Route excat path="/health" element={<Newsitems setProgress={setProgress} key="health" pageSize={6} country="us" endPoint="top-headlines" category="health" />} />
                 <Route excat path="/science" element={<Newsitems setProgress={setProgress} key="science" pageSize={6} country="us" endPoint="top-headlines" category="science" />} />

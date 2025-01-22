@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Cards from './Cards';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
@@ -16,6 +16,11 @@ export default function Newsitems(props) {
         isEnd: false,
     });
 
+    useEffect(() => {
+        FetchData()
+    }, []);
+
+
     const FetchData = async () => {
 
         setState((prevState) => ({
@@ -27,6 +32,8 @@ export default function Newsitems(props) {
 
         let url = `https://newsapi.org/v2/${props.endPoint}?country=${props.country}&category=${props.category}&from=${currentDate}&sortBy=publishedAt&apiKey=${APIkey}&pageSize=${props.pageSize}&page=${state.page}`;
 
+        
+
         props.setProgress(30);
 
         let data = await fetch(url);
@@ -35,7 +42,7 @@ export default function Newsitems(props) {
 
         if (data.status === 200) {
             let response = await data.json();
-
+             console.log(response);
             let filteredArticles = response.articles.filter(article =>
                 article.title !== "[Removed]" &&
                 article.description !== "[Removed]" &&
@@ -71,14 +78,16 @@ export default function Newsitems(props) {
 
     const Fetching = async () => {
 
+        const nextPage = state.page + 1;
+
         setState((prevState) => ({
             ...prevState,
-            page: prevState.page + 1
+            page: nextPage,
         }));
 
         const currentDate = new Date(Date.now()).toISOString().split('T')[0];
 
-        let url = `https://newsapi.org/v2/${props.endPoint}?country=${props.country}&category=${props.category}&from=${currentDate}&sortBy=publishedAt&apiKey=${APIkey}&pageSize=${props.pageSize}&page=${state.page}`;
+        let url = `https://newsapi.org/v2/${props.endPoint}?country=${props.country}&category=${props.category}&from=${currentDate}&sortBy=publishedAt&apiKey=${APIkey}&pageSize=${props.pageSize}&page=${nextPage}`;
 
         let data = await fetch(url);
         let response = await data.json();
@@ -111,7 +120,8 @@ export default function Newsitems(props) {
     return (
         <>
             <div className="text-center mt-5 pt-1">
-                {state.loading ? <Loading /> : null}
+                {/*{state.loading ? <Loading /> : null}*/}
+                {state.loading && state.articles.length === 0 ? <Loading /> : null}
             </div>
             <div className="container my-4 text-left">
                 <InfiniteScroll
